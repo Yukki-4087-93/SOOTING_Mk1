@@ -1,7 +1,7 @@
 //-----------------------------------------------------------------
 //
-//お前...消えるのか...?処理
-//Author;takanooooooooooooooooooooooooooooooooooooooooooooooooooo
+//フェード
+//Author;takano
 //
 //-----------------------------------------------------------------
 #include"fade.h"
@@ -21,7 +21,7 @@ void InitFade(MODE modeNext)
 {
 	LPDIRECT3DDEVICE9 pDevice;						//デバイスのポインタ
 
-	//デヴァイスの取得
+	//デバイスの取得
 	pDevice = GetDevice();
 
 	g_fade = FADE_IN;
@@ -40,7 +40,7 @@ void InitFade(MODE modeNext)
 
 	VERTEX_2D * pVtx;			//頂点情報へのポインタ
 
-	//頂点バッファをコック＆ロックし、頂点情報へのポインタを取得
+	//頂点バッファをロックし、頂点情報へのポインタを取得
 	g_pVtxBuffFade->Lock(0, 0, (void**)&pVtx, 0);
 
 	//頂点座標の設定
@@ -112,7 +112,7 @@ void UpdateFade(void)
 		}
 		VERTEX_2D * pVtx;			//頂点情報へのポインタ
 
-		//頂点バッファをコック＆ロックし、頂点情報へのポインタを取得
+		//頂点バッファをロックし、頂点情報へのポインタを取得
 		g_pVtxBuffFade->Lock(0, 0, (void**)&pVtx, 0);
 
 		//頂点カラーの設定
@@ -134,7 +134,7 @@ void DrawFade(void)
 {
 	LPDIRECT3DDEVICE9 pDevice;						//デバイスのポインタ
 
-	//デヴァイスの取得
+	//デバイスの取得
 	pDevice = GetDevice();
 
 	//頂点バッファをデータストリームに設定

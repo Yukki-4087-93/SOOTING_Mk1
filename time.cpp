@@ -1,7 +1,7 @@
 //------------------------------------------------------------
 //
-//タイム情報
-//Author;takanoooooooooooooooooooooo
+//タイム
+//Author;takano
 //
 //------------------------------------------------------------
 #include"time.h"
@@ -9,11 +9,11 @@
 //---------------
 //グローバル変数
 //---------------
-int g_nTime;													//たぁいむ
-int g_nEnemyTime;
-int g_nEnmBulletTime;
-int g_nBossTime;
-int g_nOpenMyHart;
+int g_nTime;													//本時間
+int g_nEnemyTime;												//エネミーで使用する時間
+int g_nEnmBulletTime;											//エネミーの弾で使用する時間
+int g_nBossTime;												//ボスで使用する時間
+int g_nOpenMyHart;												//プレイヤーで使う時間
 
 //---------------------
 //たぁいむの初期化処理

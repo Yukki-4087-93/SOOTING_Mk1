@@ -1,6 +1,6 @@
 //-----------------------------------------------------------------------------------------------------------
 //
-//ボタン電池処理
+//インプット
 //Author;takanoooooooooooooooo
 //
 //-----------------------------------------------------------------------------------------------------------
@@ -14,22 +14,22 @@
 //-----------------
 typedef enum
 {
-	JOYKEY_UP = 0,			//十字キー↑
-	JOYKEY_DOWN,			//"""""↓
-	JOYKEY_LEFT,			//＞＞＞←
-	JOYKEY_RIGHT,			//＜＜＜→
-	JOYKEY_STRTE,			//スタ-トぼったん
-	JOYKEY_BACK,			//BLACKRX
-	JOYKEY_LPUSH,			//Lトリガラ
-	JOYKEY_RPUSH,			//ライトな鶏ガラ
-	JOYKEY_L1,				//L1
-	JOYKEY_R1,				//R1
-	JOYKEY_L2,				//L2
-	JOYKEY_R2,				//R2
+	JOYKEY_UP = 0,			//十字キー上
+	JOYKEY_DOWN,			//十字キー下
+	JOYKEY_LEFT,			//十字キー左
+	JOYKEY_RIGHT,			//十字キー右
+	JOYKEY_STRTE,			//スタ-ト
+	JOYKEY_BACK,			//バック
+	JOYKEY_LPUSH,			//Lトリガー
+	JOYKEY_RPUSH,			//Rトリガー
+	JOYKEY_L1,				//L1ボタン
+	JOYKEY_R1,				//R1ボタン
+	JOYKEY_L2,				//L2ボタン
+	JOYKEY_R2,				//R2ボタン
 	JOYKEY_A,				//Aボタン
 	JOYKEY_B,				//Bボタン
 	JOYKEY_X,				//Xボタン
-	JOYKEY_Y,				//Yバトラー
+	JOYKEY_Y,				//Yボタン
 	MAX_KEY
 }JOYkey;
 

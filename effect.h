@@ -1,7 +1,7 @@
 //-----------------------------------------------------
 //
-//光ファイバーの処理
-//Author;takanooooooooooo
+//エフェクト
+//Author;takano
 //
 //-----------------------------------------------------
 #ifndef _EFFECT_H_
@@ -9,24 +9,24 @@
 
 #include"main.h"
 
-//-------------------
-//EFFECT構造体の定義
-//-------------------
+//-------------------------
+//エフェクトの構造体定義
+//-------------------------
 typedef struct
 {
 	D3DXVECTOR3 pos;						//位置
 	D3DXVECTOR3 move;						//移動量
 	D3DXCOLOR col;							//色だよ
-	float fRadius;							//発勁だよ
-	int nCounterAnim;						//アニメーシカウンター
-	int nPatternAnim;						//アニメーシパターン
-	int nLife;								//いのき
-	bool bUse;								//爆弾薬使用中か否か
+	float fRadius;							//半径
+	int nCounterAnim;						//アニメーションカウンター
+	int nPatternAnim;						//アニメーションパターン
+	int nLife;								//ライフ
+	bool bUse;								//弾使用中か否か
 }EFFECT;
 
-//-----------------
+//-------------------------
 //プロトタイプ宣言
-//-----------------
+//-------------------------
 void InitEffect(void);
 void UninitEffect(void);
 void UpdateEffect(void);

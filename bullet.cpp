@@ -1,7 +1,7 @@
 //------------------------------------------------------------
 //
-//弾幕薄いよ何やってんの処理
-//Author;takanoooooooooooooooooooooo
+//弾
+//Author;takano
 //
 //------------------------------------------------------------
 #include"bullet.h"
@@ -28,21 +28,21 @@ void InitBullet(void)
 {
 	LPDIRECT3DDEVICE9 pDevice;				//デバイスのポインタ
 	int nCntBullet;
-	pDevice = GetDevice();					//デヴァイスの取得
+	pDevice = GetDevice();					//デバイスの取得
 
 	//弾の初期化
 	for (nCntBullet = 0; nCntBullet < MAX_BULLET; nCntBullet++)
 	{
 		g_aBullet[nCntBullet].pos = D3DXVECTOR3(0.0f, 0.0f, 0.0f);		//中心の位置
-		g_aBullet[nCntBullet].move = D3DXVECTOR3(0.0f,0.0f, 0.0f);		//ステェンディングバイ"MovePoint「P」"
+		g_aBullet[nCntBullet].move = D3DXVECTOR3(0.0f,0.0f, 0.0f);		//動きの初期化
 		g_aBullet[nCntBullet].nCounterTime = 0;							//射出時間
-		g_aBullet[nCntBullet].nLife = 200;								//火薬量
+		g_aBullet[nCntBullet].nLife = 200;								//弾のライフ
 		g_aBullet[nCntBullet].nCounterAnim = 0;							//アニメーションカウンターの初期化
 		g_aBullet[nCntBullet].nPatternAnim = 0;							//アニメーションパターンの初期化
 		g_aBullet[nCntBullet].bUse = false;								//使用してない状態にする
 		g_aBullet[nCntBullet].nEp = 0;									//爆発の初期化
 		g_aBullet[nCntBullet].nTypeBullet = 0;							//特殊弾の初期化
-		g_aBullet[nCntBullet].nPattern = 0;								//プレイヤーの山（1.雑魚敵、2.AGE、3.AGE BLACK RX,4.BIGBOSS）
+		g_aBullet[nCntBullet].nPattern = 0;								//種類（1.雑魚敵、2.ボス）
 	}
 
 	//頂点バッファ
@@ -55,7 +55,7 @@ void InitBullet(void)
 	
 	VERTEX_2D *pVtx;
 
-	//頂点バッファをコック＆ロックし、頂点情報へのポインタを取得
+	//頂点バッファをロックし、頂点情報へのポインタを取得
 	g_pVtxBuffBullet->Lock(0, 0, (void**)&pVtx, 0);
 
 	//テクスチャの読み込み処理
@@ -141,14 +141,14 @@ void UpdateBullet(void)
 
 			VERTEX_2D *pVtx;		//頂点情報へのポインタ
 
-			//頂点バッファをコック＆ロックし、頂点情報へのポインタを取得
+			//頂点バッファをロックし、頂点情報へのポインタを取得
 			g_pVtxBuffBullet->Lock(0, 0, (void**)&pVtx, 0);
-			pVtx += nCntBullet * 4;						//デデデータに合わせた数値分進む
+			pVtx += nCntBullet * 4;						//データに合わせた数値分進む
 
 			for (nCntEnemy = 0; nCntEnemy < MAX_ENEMY; nCntEnemy++, pEnemy++)
 			{
 				if (pEnemy->bUse == true)
-				{//敵ちゃんが使用されている
+				{//エネミーが使用されている
 					if (g_aBullet[nCntBullet].nPattern == 0)
 					{
 						if (g_aBullet[nCntBullet].nTypeBullet == 0)
@@ -157,8 +157,8 @@ void UpdateBullet(void)
 								g_aBullet[nCntBullet].pos.x <= pEnemy->pos.x + ENEMY_SIZE + MYBULLET_SIZE &&
 								g_aBullet[nCntBullet].pos.y >= pEnemy->pos.y - ENEMY_SIZE - MYBULLET_SIZE &&
 								g_aBullet[nCntBullet].pos.y <= pEnemy->pos.y + ENEMY_SIZE + MYBULLET_SIZE)
-							{//わたしゃの中心に敵ちゃんと弾のサイズ（各半分）を＋ーした範囲に弾が当たった時
-							 //敵ちゃんのヒット処理
+							{//プレイヤーの中心にエネミーと弾のサイズ（各半分）を＋ーした範囲に弾が当たった時
+							 //エネミーのヒット処理
 								HitEnemy(nCntEnemy, 120);
 
 								g_aBullet[nCntBullet].bUse = false;			//使用されていない状態にする
@@ -172,8 +172,8 @@ void UpdateBullet(void)
 								g_aBullet[nCntBullet].pos.x <= pEnemy->pos.x + ENEMY_SIZE + RUNNINGMAN_WIDTH &&
 								g_aBullet[nCntBullet].pos.y >= pEnemy->pos.y - ENEMY_SIZE - RUNNINGMAN_HEIGHT &&
 								g_aBullet[nCntBullet].pos.y <= pEnemy->pos.y + ENEMY_SIZE + RUNNINGMAN_HEIGHT)
-							{//わたしゃの中心に敵ちゃんと弾のサイズ（各半分）を＋ーした範囲に弾が当たった時
-							 //敵ちゃんのヒット処理
+							{//プレイヤーの中心にエネミーと弾のサイズ（各半分）を＋ーした範囲に弾が当たった時
+							 //エネミーのヒット処理
 								HitEnemy(nCntEnemy, 45);
 
 								g_aBullet[nCntBullet].bUse = false;			//使用されていない状態にする
@@ -187,8 +187,8 @@ void UpdateBullet(void)
 								g_aBullet[nCntBullet].pos.x <= pEnemy->pos.x + ENEMY_SIZE + MYBULLET_SIZE &&
 								g_aBullet[nCntBullet].pos.y >= pEnemy->pos.y - ENEMY_SIZE - MYBULLET_SIZE &&
 								g_aBullet[nCntBullet].pos.y <= pEnemy->pos.y + ENEMY_SIZE + MYBULLET_SIZE)
-							{//わたしゃの中心に敵ちゃんと弾のサイズ（各半分）を＋ーした範囲に弾が当たった時
-							 //敵ちゃんのヒット処理
+							{//プレイヤーの中心にエネミーと弾のサイズ（各半分）を＋ーした範囲に弾が当たった時
+							 //エネミーのヒット処理
 								HitEnemy(nCntEnemy, 100);
 
 								g_aBullet[nCntBullet].bUse = false;			//使用されていない状態にする
@@ -202,8 +202,8 @@ void UpdateBullet(void)
 								g_aBullet[nCntBullet].pos.x <= pEnemy->pos.x + ENEMY_SIZE + MYBULLET_SIZE &&
 								g_aBullet[nCntBullet].pos.y >= pEnemy->pos.y - ENEMY_SIZE - MYBULLET_SIZE &&
 								g_aBullet[nCntBullet].pos.y <= pEnemy->pos.y + ENEMY_SIZE + MYBULLET_SIZE)
-							{//わたしゃの中心に敵ちゃんと弾のサイズ（各半分）を＋ーした範囲に弾が当たった時
-							 //敵ちゃんのヒット処理
+							{//プレイヤーの中心にエネミーと弾のサイズ（各半分）を＋ーした範囲に弾が当たった時
+							 //エネミーのヒット処理
 								HitEnemy(nCntEnemy, 20);
 
 								g_aBullet[nCntBullet].bUse = false;			//使用されていない状態にする
@@ -217,9 +217,9 @@ void UpdateBullet(void)
 								g_aBullet[nCntBullet].pos.x <= pEnemy->pos.x + ENEMY_SIZE + MYBULLET_SIZE &&
 								g_aBullet[nCntBullet].pos.y >= pEnemy->pos.y - ENEMY_SIZE - MYBULLET_SIZE &&
 								g_aBullet[nCntBullet].pos.y <= pEnemy->pos.y + ENEMY_SIZE + MYBULLET_SIZE)
-							{//敵ちゃんの中心に敵ちゃんと弾のサイズ（各半分）を＋ーした範囲に弾が当たった時
+							{//エネミーの中心にエネミーと弾のサイズ（各半分）を＋ーした範囲に弾が当たった時
 
-							 //敵ちゃんのヒット処理
+							 //エネミーのヒット処理
 								HitEnemy(nCntEnemy, 150);
 
 								g_aBullet[nCntBullet].bUse = false;			//使用されていない状態にする
@@ -232,7 +232,7 @@ void UpdateBullet(void)
 			}
 
 			if (pPlayer->bUse == true)
-			{//吾輩が使用されている
+			{//プレイヤーが使用されている
 				if (g_aBullet[nCntBullet].nPattern == 1)
 				{
 					if (g_aBullet[nCntBullet].nTypeBullet == 0)
@@ -241,12 +241,10 @@ void UpdateBullet(void)
 							g_aBullet[nCntBullet].pos.x <= pPlayer->pos.x + WD_PLAYER - MINUS_PLAYERSIZE + MYBULLET_SIZE &&
 							g_aBullet[nCntBullet].pos.y >= pPlayer->pos.y - HI_PLAYER + MINUS_PLAYERSIZE - MYBULLET_SIZE &&
 							g_aBullet[nCntBullet].pos.y <= pPlayer->pos.y + WD_PLAYER - MINUS_PLAYERSIZE + MYBULLET_SIZE)
-						{//わたくしの中心に敵ちゃんと弾のサイズ（各半分）を＋ーした範囲に弾が当たった時
+						{//プレイヤーの中心にエネミーと弾のサイズ（各半分）を＋ーした範囲に弾が当たった時
 
-						 //オレちゃんのヒット処理
+							//プレイヤーのヒット処理
 							HitPlayer(1);
-
-							//HitLife(pPlayer->nPlayerLife);
 
 							g_aBullet[nCntBullet].bUse = false;			//使用されていない状態にする
 						}
@@ -255,7 +253,7 @@ void UpdateBullet(void)
 			}
 
 			if (pBoss->bUse == true)
-			{//吾輩が使用されている
+			{//プレイヤーが使用されている
 
 				if (g_aBullet[nCntBullet].nPattern == 2)
 				{
@@ -265,9 +263,9 @@ void UpdateBullet(void)
 							g_aBullet[nCntBullet].pos.x <= pPlayer->pos.x + WD_PLAYER + MYBULLET_SIZE &&
 							g_aBullet[nCntBullet].pos.y >= pPlayer->pos.y - HI_PLAYER - MYBULLET_SIZE &&
 							g_aBullet[nCntBullet].pos.y <= pPlayer->pos.y + WD_PLAYER + MYBULLET_SIZE)
-						{//わたくしの中心に敵ちゃんと弾のサイズ（各半分）を＋ーした範囲に弾が当たった時
+						{//プレイヤーの中心にエネミーと弾のサイズ（各半分）を＋ーした範囲に弾が当たった時
 
-						 //オレちゃんのヒット処理
+							//プレイヤーのヒット処理
 							HitPlayer(1);
 
 							g_aBullet[nCntBullet].bUse = false;			//使用されていない状態にする
@@ -282,8 +280,8 @@ void UpdateBullet(void)
 							g_aBullet[nCntBullet].pos.x <= pBoss->pos.x + BOSS_HISIZE + RUNNINGMAN_WIDTH &&
 							g_aBullet[nCntBullet].pos.y >= pBoss->pos.y - BOSS_WDSIZE - RUNNINGMAN_HEIGHT &&
 							g_aBullet[nCntBullet].pos.y <= pBoss->pos.y + BOSS_WDSIZE + RUNNINGMAN_HEIGHT)
-						{//わたしゃの中心に敵ちゃんと弾のサイズ（各半分）を＋ーした範囲に弾が当たった時
-						 //敵ちゃんのヒット処理
+						{//プレイヤーの中心にエネミーと弾のサイズ（各半分）を＋ーした範囲に弾が当たった時
+						 //エネミーのヒット処理
 							HitBoss(nCountBoss, 100);
 
 							g_aBullet[nCntBullet].bUse = false;			//使用されていない状態にする
@@ -297,9 +295,9 @@ void UpdateBullet(void)
 							g_aBullet[nCntBullet].pos.x <= pBoss->pos.x + BOSS_HISIZE + MYBULLET_SIZE &&
 							g_aBullet[nCntBullet].pos.y >= pBoss->pos.y - BOSS_WDSIZE - MYBULLET_SIZE &&
 							g_aBullet[nCntBullet].pos.y <= pBoss->pos.y + BOSS_WDSIZE + MYBULLET_SIZE)
-						{//敵ちゃんの中心に敵ちゃんと弾のサイズ（各半分）を＋ーした範囲に弾が当たった時
+						{//エネミーの中心にエネミーと弾のサイズ（各半分）を＋ーした範囲に弾が当たった時
 
-						 //敵ちゃんのヒット処理
+						 //エネミーのヒット処理
 							HitBoss(nCountBoss, 5);
 
 							g_aBullet[nCntBullet].bUse = false;			//使用されていない状態にする
@@ -504,7 +502,7 @@ void SetBullet(D3DXVECTOR3 pos, D3DXVECTOR3 move, int nEp, int nTypeBullet, int 
 
 	VERTEX_2D *pVtx;
 
-	//頂点バッファをコック＆ロックし、頂点情報へのポインタを取得
+	//頂点バッファをロックし、頂点情報へのポインタを取得
 	g_pVtxBuffBullet->Lock(0, 0, (void**)&pVtx, 0);
 
 	for (nCntBullet = 0; nCntBullet < MAX_BULLET; nCntBullet++)

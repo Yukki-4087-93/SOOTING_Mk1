@@ -1,7 +1,7 @@
 //------------------------------------------------------------
 //
-//爆弾の威力低いよ何やってんの処理
-//Author;takanoooooooooooooooooooooo
+//爆発
+//Author;takano
 //
 //------------------------------------------------------------
 #include"explosion.h"
@@ -9,7 +9,7 @@
 //-----------
 //マクロ定義
 //-----------
-#define	MAX_EXPLOSION			(128)									//爆弾の最大装填数
+#define	MAX_EXPLOSION			(128)									//爆弾の最大数
 
 //---------------
 //弾構造体の定義
@@ -18,9 +18,9 @@ typedef struct
 {
 	D3DXVECTOR3 pos;													//位置
 	D3DXCOLOR col;														//色だよ
-	int nCounterAnim;													//アニメーシカウンター
-	int nPatternAnim;													//アニメーシカウンター
-	bool bUse;															//爆弾薬使用中か否か
+	int nCounterAnim;													//アニメーションカウンター
+	int nPatternAnim;													//アニメーションカウンター
+	bool bUse;															//爆発が使用中か否か
 }Explosion;
 
 //---------------
@@ -28,16 +28,16 @@ typedef struct
 //---------------
 LPDIRECT3DTEXTURE9 g_pTexExplosion = NULL;							//テクスチャのポインタ
 LPDIRECT3DVERTEXBUFFER9 g_pVtxBuffExplosion = NULL;						//頂点バッファのポインタ
-Explosion g_aExplosion[MAX_EXPLOSION];									//弾の情報
+Explosion g_aExplosion[MAX_EXPLOSION];									//爆発の情報
 
 //---------------
-//C4の初期化処理
+//爆発の初期化
 //---------------
 void InitExplosion(void)
 {
 	LPDIRECT3DDEVICE9 pDevice;				//デバイスのポインタ
 	int nCntExplosion;
-	pDevice = GetDevice();					//デヴァイスの取得
+	pDevice = GetDevice();					//デバイスの取得
 
 	//ボマーの初期化
 	for (nCntExplosion = 0; nCntExplosion < MAX_EXPLOSION; nCntExplosion++)
@@ -98,7 +98,7 @@ void InitExplosion(void)
 }
 
 //---------------------
-//クレイモアの終了処理
+//爆発の終了
 //---------------------
 void UninitExplosion(void)
 {
@@ -118,7 +118,7 @@ void UninitExplosion(void)
 }
 
 //----------------
-//TNTの更新処理
+//爆発の更新
 //----------------
 void UpdateExplosion(void)
 {
@@ -159,7 +159,7 @@ void UpdateExplosion(void)
 }
 
 //-----------------------
-//ユナ・ボマーの描画処理
+//爆発の描画
 //-----------------------
 void DrawExplosion(void)
 {
@@ -191,7 +191,7 @@ void DrawExplosion(void)
 }
 
 //---------------
-//地雷の設定処理
+//爆発の設定
 //---------------
 void SetExplosion(D3DXVECTOR3 pos, D3DXCOLOR col)
 {
@@ -210,7 +210,7 @@ void SetExplosion(D3DXVECTOR3 pos, D3DXCOLOR col)
 
 			//頂点バッファをコック＆ロックし、頂点情報へのポインタを取得
 			g_pVtxBuffExplosion->Lock(0, 0, (void**)&pVtx, 0);
-			pVtx += nCntExplosion * 4;						//デデデータに合わせた数値分進む
+			pVtx += nCntExplosion * 4;						//データに合わせた数値分進む
 
 			//頂点座標の設定
 			pVtx[0].pos = D3DXVECTOR3(g_aExplosion[nCntExplosion].pos.x - 100.0f, g_aExplosion[nCntExplosion].pos.y - 100.0f, 0.0f);

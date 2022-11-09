@@ -1,23 +1,23 @@
 //------------------------------------------------------
 //
-//敵(の潜水艦を発見！)処理
-//Author;takanoooooooooooo
+//エネミー
+//Author;takano
 //
 //------------------------------------------------------
 #ifndef _ENEMY_H_
 #define _ENEMY_H_
 #include"main.h"
 
-//------------
+//-----------------------
 //マクロ定義
-//------------
-#define	MAX_ENEMY			(1280)						//敵ちゃん最大装填数
-#define NUM_ENEMY			(4)							//敵ちゃんの種類
-#define ENEMY_SIZE			(10)						//敵の潜水艦のサイズの半分
-#define ENEMY_MAXSIZE		(20)						//敵の潜水艦のサイズ
+//-----------------------
+#define	MAX_ENEMY			(1280)						//エネミー最大数
+#define NUM_ENEMY			(4)							//エネミーの種類
+#define ENEMY_SIZE			(10)						//エネミーのサイズの半分
+#define ENEMY_MAXSIZE		(20)						//エネミーのサイズ
 
 //-----------------------
-//敵ちゃんの状態
+//エネミーの状態
 //-----------------------
 typedef enum
 {
@@ -27,7 +27,7 @@ typedef enum
 }ENEMYSTATE;
 
 //-----------------------
-//敵ちゃんの構造体の定義
+//エネミーの構造体の定義
 //-----------------------
 typedef struct
 {
@@ -38,13 +38,13 @@ typedef struct
 	ENEMYSTATE state;						//状態
 	int nCounterState;						//状態管理カウンター
 	int nLife;								//体力
-	bool bUse;								//敵ちゃんが使用中か否か
+	bool bUse;								//エネミーが使用中か否か
 	
 }Enemy;
 
-//-----------------
+//-----------------------
 //プロトタイプ宣言
-//-----------------
+//-----------------------
 void InitEnemy(void);
 void UninitEnemy(void);
 void UpdateEnemy(void);

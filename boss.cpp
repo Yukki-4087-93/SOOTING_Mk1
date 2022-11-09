@@ -1,7 +1,7 @@
 //------------------------------------------------------
 //
 //BOSS
-//Author;takanoooooooooooo
+//Author;takano
 //
 //------------------------------------------------------
 #include"boss.h"
@@ -27,7 +27,7 @@ void InitBoss(void)
 {
 	LPDIRECT3DDEVICE9 pDevice;			//デバイスのポインタ
 
-	//デヴァイスの取得
+	//デバイスの取得
 	pDevice = GetDevice();
 
 	//頂点バッファの生成
@@ -40,13 +40,13 @@ void InitBoss(void)
 
 	VERTEX_2D*pVtx;			//頂点情報へのポインタ
 
-	//頂点バッファをコック＆ロックし、頂点情報へのポインタを取得
+	//頂点バッファをロックし、頂点情報へのポインタを取得
 	g_pVtxBuffBoss->Lock(0, 0, (void**)&pVtx, 0);
 
 	//テクスチャの読み込み処理
 	D3DXCreateTextureFromFile(pDevice, "Data//TEXTURE//AGE.png", &g_apTextureBoss);
 	
-	//敵ちゃんのの初期化
+	//ボスの初期化
 	for (int nCntBoss = 0; nCntBoss < MAX_BOSS; nCntBoss++)
 	{
 		g_aBoss[nCntBoss].pos = D3DXVECTOR3(0.0f, 0.0f, 0.0f);		//中心の位置
@@ -150,7 +150,7 @@ void UpdateBoss(void)
 			}
 			VERTEX_2D *pVtx;
 
-			//頂点バッファをコック＆ロックし、頂点情報へのポインタを取得
+			//頂点バッファをロックし、頂点情報へのポインタを取得
 			g_pVtxBuffBoss->Lock(0, 0, (void**)&pVtx, 0);
 			pVtx += nCntBoss * 4;						//デデデータに合わせた数値分進む
 
@@ -171,7 +171,7 @@ void UpdateBoss(void)
 				g_aBoss[nCntBoss].nCounterState--;
 
 				if (g_aBoss[nCntBoss].nCounterState <= 0)
-				{//敵ちゃんの体力が0以上のとき
+				{//BOSSの体力が0以上のとき
 					g_aBoss[nCntBoss].state = BOSSSTATE_NORMAL;						//敵ちゃんを通常状態にする
 
 																					//頂点カラーの設定
@@ -194,7 +194,7 @@ void UpdateBoss(void)
 //---------------------
 void DrawBoss(void)
 {
-	//デヴァイスへのポインタ
+	//デバイスへのポインタ
 	LPDIRECT3DDEVICE9 pDevice;
 
 	//デバイスの取得
@@ -203,7 +203,7 @@ void DrawBoss(void)
 	for (int i = 0; i < MAX_BOSS; i++)
 	{
 		if (g_aBoss[i].bUse == true)
-		{//ボスが使用されている
+		{//BOSSが使用されている
 
 			//頂点バッファをデータストリームに設定
 			pDevice->SetStreamSource(0, g_pVtxBuffBoss, 0, sizeof(VERTEX_2D));
@@ -233,16 +233,16 @@ void SetBoss(D3DXVECTOR3 pos, int nType, int nPattern)
 	for (nCntBoss = 0; nCntBoss < MAX_BOSS; nCntBoss++)
 	{
 		if (g_aBoss[nCntBoss].bUse == false)
-		{//ボスが使われていない
-			g_aBoss[nCntBoss].pos = pos;				//プレイヤーの中心とマテリアルの中心を同じにする
+		{//BOSSが使われていない
+			g_aBoss[nCntBoss].pos = pos;				//BOSSの中心とマテリアルの中心を同じにする
 			g_aBoss[nCntBoss].nType = nType;
 			g_aBoss[nCntBoss].nPattern = nPattern;
 
 			VERTEX_2D *pVtx;
 
-			//頂点バッファをコック＆ロックし、頂点情報へのポインタを取得
+			//頂点バッファをロックし、頂点情報へのポインタを取得
 			g_pVtxBuffBoss->Lock(0, 0, (void**)&pVtx, 0);
-			pVtx += nCntBoss * 4;						//デデデータに合わせた数値分進む
+			pVtx += nCntBoss * 4;						//データに合わせた数値分進む
 
 			//頂点座標の設定
 			pVtx[0].pos = D3DXVECTOR3(g_aBoss[nCntBoss].pos.x - BOSS_HISIZE, g_aBoss[nCntBoss].pos.y - BOSS_WDSIZE, 0.0f);
@@ -282,13 +282,13 @@ void SetBoss(D3DXVECTOR3 pos, int nType, int nPattern)
 }
 
 //---------------------
-//BOSSのヒットしょりー
+//BOSSのヒット
 //---------------------
 void HitBoss(int nCntBoss, int nDamage)
 {
 	g_aBoss[nCntBoss].nLife -= nDamage;
 	if (g_aBoss[nCntBoss].nLife <= 0)
-	{//敵ちゃんの体力がなくなったとき
+	{//BOSSの体力がなくなったとき
 		SetExplosion(g_aBoss[nCntBoss].pos, D3DXCOLOR(1.0f, 0.0f, 0.0f, 1.0f));
 		g_nAliveBoss--;
 		FADE pFade = GetFade();
@@ -303,10 +303,10 @@ void HitBoss(int nCntBoss, int nDamage)
 	{
 		VERTEX_2D*pVtx;			//頂点情報へのポインタ
 
-		//頂点バッファをコック＆ロックし、頂点情報へのポインタを取得
+		//頂点バッファをロックし、頂点情報へのポインタを取得
 		g_pVtxBuffBoss->Lock(0, 0, (void**)&pVtx, 0);
 
-		pVtx += nCntBoss * 4;						//デデデータに合わせた数値分進む
+		pVtx += nCntBoss * 4;						//データに合わせた数値分進む
 
 		g_aBoss[nCntBoss].state = BOSSSTATE_DAMAGE;
 		g_aBoss[nCntBoss].nCounterState = 5;				//ダメージ状態を保つ時間
@@ -324,7 +324,7 @@ void HitBoss(int nCntBoss, int nDamage)
 }
 
 //--------------------
-//ボスの情報取得
+//BOSSの情報取得
 //--------------------
 Boss *GetBoss(void)
 {
@@ -332,7 +332,7 @@ Boss *GetBoss(void)
 }
 
 //--------------------
-//ボスの情報取得
+//BOSSの情報取得
 //--------------------
 int GetAliveBoss(void)
 {

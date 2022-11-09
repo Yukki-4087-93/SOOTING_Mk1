@@ -1,7 +1,7 @@
 //-----------------------------------------------------------------------------------------------------------
 //
 //プレイヤー
-//Author;takanoooooooooooooooo
+//Author;takano
 //
 //-----------------------------------------------------------------------------------------------------------
 #include"main.h"
@@ -14,11 +14,6 @@
 #include"fade.h"
 
 //---------------
-//マクロ定義
-//---------------
-//#define MAX_LIFE			(20)							//プレイヤー最大ライフ
-
-//---------------
 //グローバル変数
 //---------------
 LPDIRECT3DTEXTURE9 g_pTexturePlayer = NULL;			//テクスチャのポインタ
@@ -26,17 +21,16 @@ LPDIRECT3DVERTEXBUFFER9 g_pVtxBuffPlayer = NULL;	//頂点バッファのポインタ
 Player g_aPlayer[MAX_PLAYER];						//俺たちの情報
 int g_nEp;											//爆発
 int g_nTypeBullet;									//特殊弾頭
-bool g_bTime;										//お時間
-bool g_bHart;
+bool g_bTime;										//発射カウント時間
 
 //------------------------
-//”俺”の初期化処理
+//プレイヤーの初期化
 //------------------------
 void InitPlayer(void)
 {
 	LPDIRECT3DDEVICE9 pDevice;						//デバイスのポインタ
 
-	//デヴァイスの取得
+	//デバイスの取得
 	pDevice = GetDevice();
 
 	//頂点バッファの生成
@@ -44,10 +38,10 @@ void InitPlayer(void)
 
 	VERTEX_2D*pVtx;			//頂点情報へのポインタ
 
-	//頂点バッファをコック＆ロックし、頂点情報へのポインタを取得
+	//頂点バッファをロックし、頂点情報へのポインタを取得
 	g_pVtxBuffPlayer->Lock(0, 0, (void**)&pVtx, 0);
 
-	//テクスチャの読み込み処理
+	//テクスチャの読み込み
 	D3DXCreateTextureFromFile(pDevice, "Data//TEXTURE//llllllll.png", &g_pTexturePlayer);
 
 	g_aPlayer[0].pos = D3DXVECTOR3(200.0f, 400.0f, 0.0f);				//位置を初期化する
@@ -60,7 +54,6 @@ void InitPlayer(void)
 	g_nEp = 0;															//爆発の初期化
 	g_nTypeBullet = 0;													//特殊弾の初期化
 	g_bTime = false;													//弾に使用されるタイマーの初期化
-	g_bHart = false;													//弾の特殊タイマー（未使用）
 	g_aPlayer[0].bUse = true;											//使用されているか否か
 	for (int i = 0; i < g_aPlayer[0].nPlayerLife; i++)
 	{
@@ -113,7 +106,7 @@ void InitPlayer(void)
 }
 
 //---------------------
-//”俺”の終了処理
+//プレイヤーの終了
 //---------------------
 void UninitPlayer(void)
 {
@@ -133,13 +126,13 @@ void UninitPlayer(void)
 }
 
 //----------------
-//”俺”の更新処理
+//プレイヤーの更新
 //----------------
 void UpdatePlayer(void)
 {
 	VERTEX_2D*pVtx;							//頂点情報へのポインタ
 
-	//頂点バッファをコック＆ロックし、頂点情報へのポインタを取得
+	//頂点バッファをロックし、頂点情報へのポインタを取得
 	g_pVtxBuffPlayer->Lock(0, 0, (void**)&pVtx, 0);
 
 	if (GetkeyboardPress(DIK_A) == true || GetJoypadPress(JOYKEY_LEFT) == true)
@@ -192,27 +185,29 @@ void UpdatePlayer(void)
 
 	if (GetkeyboardTrigger(DIK_SPACE) == true || GetJoypadTrigger(JOYKEY_X) == true)
 	{// スペースキーが押された
+
+		//1番目の弾
 		if (g_nTypeBullet == 0)
 		{
 			SetBullet(g_aPlayer[0].pos, D3DXVECTOR3(sinf(D3DX_PI * 0.5f) * 20.0f, cosf(D3DX_PI * 0.5f) * 20.0f, 0.0f), g_nEp, g_nTypeBullet, 0);
 		}
 		else if (g_nTypeBullet == 1)
-		{//2番目の玉ねぎ
+		{//2番目の弾
 
 			SetBullet(g_aPlayer[0].pos, D3DXVECTOR3(sinf(D3DX_PI * 0.5f) * 6.0f, cosf(D3DX_PI * 0.5f) * 6.0f, 0.0f), g_nEp, g_nTypeBullet, 0);
 		}
 		else if (g_nTypeBullet == 2)
-		{//3番地の卵
+		{//3番目の弾
 			SetBullet(g_aPlayer[0].pos, D3DXVECTOR3(sinf(D3DX_PI * 0.5f) * 20.0f, cosf(D3DX_PI * 0.5f) * 20.0f, 0.0f), g_nEp, g_nTypeBullet, 0);
 			SetBullet(g_aPlayer[0].pos, D3DXVECTOR3(sinf(D3DX_PI * 0.5f) * 20.0f, cosf(D3DX_PI * 0.54f) * 20.0f, 0.0f), g_nEp, g_nTypeBullet, 0);
 			SetBullet(g_aPlayer[0].pos, D3DXVECTOR3(sinf(D3DX_PI * 0.5f) * 20.0f, cosf(D3DX_PI * 0.46f) * 20.0f, 0.0f), g_nEp, g_nTypeBullet, 0);
 		}
 		else if (g_nTypeBullet == 3)
-		{//4番出口の玉川
+		{//4番目の弾
 				SetBullet(g_aPlayer[0].pos, D3DXVECTOR3(sinf(D3DX_PI * 0.5f) * 20.0f, cosf(D3DX_PI * 0.5f) * 20.0f, 0.0f), g_nEp, g_nTypeBullet, 0);
 		}
 		else if (g_nTypeBullet == 4)
-		{//5番ホールの魂
+		{//5番目の弾
 			SetBullet(g_aPlayer[0].pos, D3DXVECTOR3(sinf(D3DX_PI * 0.5f) * 100.0f, cosf(D3DX_PI * 0.5f) * 100.0f, 0.0f), g_nEp, g_nTypeBullet, 0);
 		}
 	}
@@ -228,7 +223,7 @@ void UpdatePlayer(void)
 		if (GetkeyboardPress(DIK_J) == true || GetJoypadPress(JOYKEY_Y) == true)
 		{//Jキーが押された
 			if (g_nTypeBullet == 5)
-			{//6番目の恋符マスタースパーク
+			{//6番目の弾
 				SetBullet(g_aPlayer[0].pos, D3DXVECTOR3(sinf(D3DX_PI * 0.5f) * 30.0f, cosf(D3DX_PI * 0.5f) * 30.0f, 0.0f), g_nEp, g_nTypeBullet, 0);
 				SetBullet(g_aPlayer[0].pos, D3DXVECTOR3(sinf(D3DX_PI * 0.5f) * 30.0f, cosf(D3DX_PI * 0.52f) * 30.0f, 0.0f), g_nEp, g_nTypeBullet, 0);
 				SetBullet(g_aPlayer[0].pos, D3DXVECTOR3(sinf(D3DX_PI * 0.5f) * 30.0f, cosf(D3DX_PI * 0.48f) * 30.0f, 0.0f), g_nEp, g_nTypeBullet, 0);
@@ -270,24 +265,24 @@ void UpdatePlayer(void)
 	g_aPlayer[0].pos.y += g_aPlayer[0].move.y;
 
 	//移動量を更新
-	g_aPlayer[0].move.x += (0.0f - g_aPlayer[0].move.x) * 0.0793852f;				//未完成だから細かく/8月某日
-	g_aPlayer[0].move.y += (0.0f - g_aPlayer[0].move.y) * 0.0793852f;				//↑納得しましたー/ 9月29日
+	g_aPlayer[0].move.x += (0.0f - g_aPlayer[0].move.x) * 0.0793852f;				
+	g_aPlayer[0].move.y += (0.0f - g_aPlayer[0].move.y) * 0.0793852f;
 
 	if (g_aPlayer[0].pos.y >= SCREEN_HEIGHT - 20.0f)
-	{//下橋(画面下兼画面端)
+	{//下画面の当たり判定
 		g_aPlayer[0].pos.y = SCREEN_HEIGHT - 20.0f;
 	}
 	else if (g_aPlayer[0].pos.y <= 0 + 20.0f)
-	{//上橋(画面上兼画面端)
+	{//上画面の当たり判定
 		g_aPlayer[0].pos.y = 0 + 20.0f;
 	}
 
 	if (g_aPlayer[0].pos.x >= SCREEN_WIDTH - 800.0f)
-	{//ミギー橋(画面右兼画面端)
+	{//右画面の当たり判定
 		g_aPlayer[0].pos.x = SCREEN_WIDTH - 800.0f;
 	}
 	else if (g_aPlayer[0].pos.x <= 0 + 25.0f)
-	{//左橋(画面左兼画面端)
+	{//左画面の当たり判定
 		g_aPlayer[0].pos.x = 0 + 25.0f;
 	}
 
@@ -356,13 +351,13 @@ void UpdatePlayer(void)
 }
 
 //-----------------
-//”俺”の描画処理
+//プレイヤーの描画
 //-----------------
 void DrawPlayer(void)
 {
 	LPDIRECT3DDEVICE9 pDevice;						//デバイスのポインタ
 
-	//デヴァイスの取得
+	//デバイスの取得
 	pDevice = GetDevice();
 	//頂点フォーマット
 	pDevice->SetFVF(FVF_VERTEX_2D);
@@ -381,7 +376,7 @@ void DrawPlayer(void)
 }
 
 //---------------------
-//ライフの増える処理
+//ライフの増える
 //---------------------
 void AddPlayer(int nAdd)
 {
@@ -389,7 +384,7 @@ void AddPlayer(int nAdd)
 }
 
 //---------------------
-//オレのヒット処理
+//プレイヤーのヒット
 //---------------------
 void HitPlayer(int nDamage)
 {
@@ -409,7 +404,7 @@ void HitPlayer(int nDamage)
 	{
 		VERTEX_2D*pVtx;			//頂点情報へのポインタ
 
-		//頂点バッファをコック＆ロックし、頂点情報へのポインタを取得
+		//頂点バッファをロックし、頂点情報へのポインタを取得
 		g_pVtxBuffPlayer->Lock(0, 0, (void**)&pVtx, 0);
 
 		pVtx += nCountPlayer * 4;						//データに合わせた数値分進む
@@ -429,7 +424,7 @@ void HitPlayer(int nDamage)
 }
 
 //-----------------
-//げってぃんぐP
+//プレイヤーの取得
 //-----------------
 Player *GetPlayer(void)
 {

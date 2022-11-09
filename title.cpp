@@ -1,7 +1,7 @@
 //------------------------------------------------------------------------------
 //
 //タイトル画面
-//Author;takanoooooooooooooooooooooooooooooooooooooooooo
+//Author;takano
 //
 //------------------------------------------------------------------------------
 #include"title.h"
@@ -22,7 +22,7 @@ void InitTitle(void)
 {
 	LPDIRECT3DDEVICE9 pDevice;						//デバイスのポインタ
 
-	//デヴァイスの取得
+	//デバイスの取得
 	pDevice = GetDevice();
 
 	//頂点バッファの生成
@@ -37,7 +37,7 @@ void InitTitle(void)
 
 	VERTEX_2D*pVtx;			//頂点情報へのポインタ
 
-	//頂点バッファをコック＆ロックし、頂点情報へのポインタを取得
+	//頂点バッファをロックし、頂点情報へのポインタを取得
 	g_pVtxBuffTitle->Lock(0, 0, (void**)&pVtx, 0);
 
 	//頂点座標の設定
@@ -117,7 +117,7 @@ void DrawTitle(void)
 {
 	LPDIRECT3DDEVICE9 pDevice;						//デバイスのポインタ
 
-	//デヴァイスの取得
+	//デバイスの取得
 	pDevice = GetDevice();
 	//頂点フォーマット
 	pDevice->SetFVF(FVF_VERTEX_2D);

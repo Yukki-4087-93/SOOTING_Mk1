@@ -1,7 +1,7 @@
 //------------------------------------------------------
 //
-//敵(の潜水艦を発見！)処理
-//Author;takanoooooooooooo
+//エネミー
+//Author;takano
 //
 //------------------------------------------------------
 #include"explosion.h"
@@ -17,11 +17,11 @@
 //---------------
 LPDIRECT3DTEXTURE9 g_apTextureEnemy[NUM_ENEMY] = { NULL, NULL, NULL, NULL };					//テクスチャのポインタ
 LPDIRECT3DVERTEXBUFFER9 g_pVtxBuffEnemy = NULL;													//頂点バッファのポインタ
-Enemy g_aEnemy[MAX_ENEMY];																		//敵ちゃんの情報
+Enemy g_aEnemy[MAX_ENEMY];																		//エネミーの情報
 int g_nAliveEnemy;
 
 //---------------------
-//敵ちゃんの初期化処理
+//エネミーの初期化処理
 //---------------------
 void InitEnemy(void)
 {
@@ -29,7 +29,7 @@ void InitEnemy(void)
 
 	int nCntEnemy;
 
-	//デヴァイスの取得
+	//デバイスの取得
 	pDevice = GetDevice();
 
 	//頂点バッファの生成
@@ -42,7 +42,7 @@ void InitEnemy(void)
 
 	VERTEX_2D*pVtx;			//頂点情報へのポインタ
 
-	//頂点バッファをコック＆ロックし、頂点情報へのポインタを取得
+	//頂点バッファをロックし、頂点情報へのポインタを取得
 	g_pVtxBuffEnemy->Lock(0, 0, (void**)&pVtx, 0);
 
 	//テクスチャの読み込み処理
@@ -51,7 +51,7 @@ void InitEnemy(void)
 	D3DXCreateTextureFromFile(pDevice, "Data//TEXTURE//llllllll.png", &g_apTextureEnemy[2]);
 	D3DXCreateTextureFromFile(pDevice, "Data//TEXTURE//llllllll.png", &g_apTextureEnemy[3]);
 
-	//敵ちゃんのの初期化
+	//エネミーのの初期化
 	for (nCntEnemy = 0; nCntEnemy < MAX_ENEMY; nCntEnemy++)
 	{
 		g_aEnemy[nCntEnemy].pos = D3DXVECTOR3(0.0f, 0.0f, 0.0f);		//中心の位置
@@ -99,7 +99,7 @@ void InitEnemy(void)
 }
 
 //---------------------
-//敵ちゃんのオワタ処理
+//エネミーのオワタ処理
 //---------------------
 void UninitEnemy(void)
 {
@@ -124,7 +124,7 @@ void UninitEnemy(void)
 }
 
 //-------------------
-//敵ちゃんの更新処理
+//エネミーの更新処理
 //-------------------
 void UpdateEnemy(void)
 {
@@ -155,11 +155,11 @@ void UpdateEnemy(void)
 					
 				}
 				if (g_aEnemy[nCntEnemy].pos.y >= SCREEN_HEIGHT * 0.68f)
-				{//下橋(画面下兼画面端)
+				{//画面下の当たり判定
 					g_aEnemy[nCntEnemy].move.y *= -1.0f;
 				}
 				else if (g_aEnemy[nCntEnemy].pos.y <= SCREEN_HEIGHT * 0.34f)
-				{//上橋(画面上兼画面端)
+				{//画面上の当たり判定
 					g_aEnemy[nCntEnemy].move.y *= -1.0f;
 				}
 			}
@@ -171,11 +171,11 @@ void UpdateEnemy(void)
 					SetBullet(g_aEnemy[nCntEnemy].pos, D3DXVECTOR3(sinf(D3DX_PI * -0.5f) * 10.0f, cosf(D3DX_PI * -0.5f) * 10.0f, 0.0f), 0, 0, 1);
 				}
 				if (g_aEnemy[nCntEnemy].pos.y <= 0 + ENEMY_SIZE)
-				{//ウエハース橋
+				{//画面上の判定
 					g_aEnemy[nCntEnemy].move.y *= -1.0f;
 				}
 				else if (g_aEnemy[nCntEnemy].pos.y >= SCREEN_HEIGHT - ENEMY_SIZE)
-				{//八ッ橋（下橋）
+				{//画面下の判定
 					g_aEnemy[nCntEnemy].move.y *= -1.0f;
 				}
 			}
@@ -188,11 +188,11 @@ void UpdateEnemy(void)
 
 				}
 				if (g_aEnemy[nCntEnemy].pos.y <= 0 + ENEMY_SIZE)
-				{//ウエ端
+				{//画面上に当たったときの判定
 					g_aEnemy[nCntEnemy].move.y *= -1.0f;
 				}
 				else if (g_aEnemy[nCntEnemy].pos.y >= SCREEN_HEIGHT - ENEMY_SIZE)
-				{//下端
+				{//画面下に当たったときの判定
 					g_aEnemy[nCntEnemy].move.y *= -1.0f;
 				}
 			}
@@ -209,11 +209,11 @@ void UpdateEnemy(void)
 
 				}
 				if (g_aEnemy[nCntEnemy].pos.y <= 0 + ENEMY_SIZE)
-				{//ウエハース橋
+				{//画面上に当たったときの判定
 					g_aEnemy[nCntEnemy].move.y *= -1.0f;
 				}
 				else if (g_aEnemy[nCntEnemy].pos.y >= SCREEN_HEIGHT - ENEMY_SIZE)
-				{//八ッ橋（下橋）
+				{//画面下に当たったときの判定
 					g_aEnemy[nCntEnemy].move.y *= -1.0f;
 				}
 			}
@@ -227,24 +227,24 @@ void UpdateEnemy(void)
 					SetBullet(g_aEnemy[nCntEnemy].pos, D3DXVECTOR3(sinf(D3DX_PI * -0.25f) * 10.0f, cosf(D3DX_PI * -0.25f) * 10.0f, 0.0f), 0, 0, 1);
 					SetBullet(g_aEnemy[nCntEnemy].pos, D3DXVECTOR3(sinf(D3DX_PI * -0.625f) * 10.0f, cosf(D3DX_PI *  -0.625f) * 10.0f, 0.0f), 0, 0, 1);
 					SetBullet(g_aEnemy[nCntEnemy].pos, D3DXVECTOR3(sinf(D3DX_PI * -0.375f) * 10.0f, cosf(D3DX_PI * -0.375f) * 10.0f, 0.0f), 0, 0, 1);
-					//エフェークトゥのセットアップ
+					//エフェクトのセットアップ
 					SetEffect(g_aEnemy[nCntEnemy].pos, D3DXCOLOR(0.0f, 0.0f, 0.8f, 1.0f), EFFECTBULLET_SIZE, 10);
 				}
 				if (g_aEnemy[nCntEnemy].pos.y <= 0 + ENEMY_SIZE)
-				{//ウエ端
+				{//画面上の当たり判定
 					g_aEnemy[nCntEnemy].move.y *= -1.0f;
 				}
 				else if (g_aEnemy[nCntEnemy].pos.y >= SCREEN_HEIGHT - ENEMY_SIZE)
-				{//下端
+				{//画面下に当たったときの判定
 					g_aEnemy[nCntEnemy].move.y *= -1.0f;
 				}
 			}
 
 			VERTEX_2D *pVtx;
 
-			//頂点バッファをコック＆ロックし、頂点情報へのポインタを取得
+			//頂点バッファをロックし、頂点情報へのポインタを取得
 			g_pVtxBuffEnemy->Lock(0, 0, (void**)&pVtx, 0);
-			pVtx += nCntEnemy * 4;						//デデデータに合わせた数値分進む
+			pVtx += nCntEnemy * 4;						//データに合わせた数値分進む
 
 			//頂点座標の設定
 			pVtx[0].pos = D3DXVECTOR3(g_aEnemy[nCntEnemy].pos.x - ENEMY_MAXSIZE, g_aEnemy[nCntEnemy].pos.y - ENEMY_MAXSIZE, 0.0f);
@@ -265,8 +265,8 @@ void UpdateEnemy(void)
 				g_aEnemy[nCntEnemy].nCounterState--;
 
 				if (g_aEnemy[nCntEnemy].nCounterState <= 0)
-				{//敵ちゃんの体力が0以上のとき
-					g_aEnemy[nCntEnemy].state = ENEMYSTATE_NORMAL;					//敵ちゃんを通常状態にする
+				{//エネミーの体力が0以上のとき
+					g_aEnemy[nCntEnemy].state = ENEMYSTATE_NORMAL;					//エネミーを通常状態にする
 
 					//頂点カラーの設定
 					pVtx[0].col = D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f);
@@ -284,11 +284,11 @@ void UpdateEnemy(void)
 }
 
 //-------------------
-//敵ちゃんの描画処理
+//エネミーの描画処理
 //-------------------
 void DrawEnemy(void)
 {
-	//デヴァイスへのポインタ
+	//デバイスへのポインタ
 	LPDIRECT3DDEVICE9 pDevice;
 
 	//デバイスの取得
@@ -316,7 +316,7 @@ void DrawEnemy(void)
 }
 
 //----------------
-//敵ちゃんセット
+//エネミーセット
 //----------------
 void SetEnemy(D3DXVECTOR3 pos, int nType, int nPattern)
 {
@@ -332,7 +332,7 @@ void SetEnemy(D3DXVECTOR3 pos, int nType, int nPattern)
 
 			VERTEX_2D *pVtx;
 
-			//頂点バッファをコック＆ロックし、頂点情報へのポインタを取得
+			//頂点バッファをロックし、頂点情報へのポインタを取得
 			g_pVtxBuffEnemy->Lock(0, 0, (void**)&pVtx, 0);
 			pVtx += nCntEnemy * 4;						//デデデータに合わせた数値分進む
 
@@ -399,13 +399,13 @@ void SetEnemy(D3DXVECTOR3 pos, int nType, int nPattern)
 }
 
 //---------------------
-//敵ちゃんのヒット処理
+//エネミーのヒット処理
 //---------------------
 void HitEnemy(int nCntEnemy, int nDamage)
 {
 	g_aEnemy[nCntEnemy].nLife -= nDamage;
 	if (g_aEnemy[nCntEnemy].nLife <= 0)
-	{//敵ちゃんの体力がなくなったとき
+	{//エネミーの体力がなくなったとき
 		SetExplosion(g_aEnemy[nCntEnemy].pos, D3DXCOLOR(1.0f, 0.0f, 0.0f, 1.0f));
 		g_nAliveEnemy--;
 		AddScore(100);
@@ -415,10 +415,10 @@ void HitEnemy(int nCntEnemy, int nDamage)
 	{
 		VERTEX_2D*pVtx;			//頂点情報へのポインタ
 
-		//頂点バッファをコック＆ロックし、頂点情報へのポインタを取得
+		//頂点バッファをロックし、頂点情報へのポインタを取得
 		g_pVtxBuffEnemy->Lock(0, 0, (void**)&pVtx, 0);
 
-		pVtx += nCntEnemy * 4;						//デデデータに合わせた数値分進む
+		pVtx += nCntEnemy * 4;						//データに合わせた数値分進む
 
 		g_aEnemy[nCntEnemy].state = ENEMYSTATE_DAMAGE;
 		g_aEnemy[nCntEnemy].nCounterState = 5;				//ダメージ状態を保つ時間

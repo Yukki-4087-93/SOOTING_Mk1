@@ -1,7 +1,7 @@
 //------------------------------------------------------------
 //
-//光圧低いよ何やってんの処理
-//Author;takanoooooooooooooooooooooo
+//エフェクト
+//Author;takano
 //
 //------------------------------------------------------------
 #include"effect.h"
@@ -20,19 +20,19 @@ LPDIRECT3DVERTEXBUFFER9 g_pVtxBuffEffect = NULL;			//頂点バッファのポインタ
 EFFECT g_aEffect[MAX_EFFECT];								//イーソイソイの情報
 
 //-------------------------
-//DNAスパークの初期化処理
+//エフェクトの初期化処理
 //-------------------------
 void InitEffect(void)
 {
 	LPDIRECT3DDEVICE9 pDevice;				//デバイスのポインタ
 	int nCntEffect;
-	pDevice = GetDevice();					//デヴァイスの取得
+	pDevice = GetDevice();					//デバイスの取得
 
-	//光素の初期化
+	//エフェクトの初期化
 	for (nCntEffect = 0; nCntEffect < MAX_EFFECT; nCntEffect++)
 	{
-		g_aEffect[nCntEffect].pos = D3DXVECTOR3(0.0f, 0.0f, 0.0f);		//中心の位置
-		g_aEffect[nCntEffect].move = D3DXVECTOR3(0.0f, 0.0f, 0.0f);		//動かない点P
+		g_aEffect[nCntEffect].pos = D3DXVECTOR3(0.0f, 0.0f, 0.0f);		//中心の位置の初期化
+		g_aEffect[nCntEffect].move = D3DXVECTOR3(0.0f, 0.0f, 0.0f);		//動きの初期化
 		g_aEffect[nCntEffect].col = D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f);	//色の初期化
 		g_aEffect[nCntEffect].fRadius = 0.0f;
 		g_aEffect[nCntEffect].nLife = 0;
@@ -49,7 +49,7 @@ void InitEffect(void)
 
 	VERTEX_2D *pVtx;
 
-	//頂点バッファをコック＆ロックし、頂点情報へのポインタを取得
+	//頂点バッファをロックし、頂点情報へのポインタを取得
 	g_pVtxBuffEffect->Lock(0, 0, (void**)&pVtx, 0);
 
 	//テクスチャの読み込み処理
@@ -88,7 +88,7 @@ void InitEffect(void)
 }
 
 //---------------------
-//オタ棒の終了処理
+//エフェクトの終了処理
 //---------------------
 void UninitEffect(void)
 {
@@ -107,9 +107,9 @@ void UninitEffect(void)
 	}
 }
 
-//----------------
-//閃光の更新処理
-//----------------
+//-------------------------
+//エフェクトの更新処理
+//-------------------------
 void UpdateEffect(void)
 {
 	int nCntEffect;
@@ -121,7 +121,7 @@ void UpdateEffect(void)
 
 			VERTEX_2D *pVtx;		//頂点情報へのポインタ
 
-			//頂点バッファをコック＆ロックし、頂点情報へのポインタを取得
+			//頂点バッファをロックし、頂点情報へのポインタを取得
 			g_pVtxBuffEffect->Lock(0, 0, (void**)&pVtx, 0);
 			pVtx += nCntEffect * 4;						//デデデータに合わせた数値分進む
 
@@ -165,7 +165,7 @@ void UpdateEffect(void)
 }
 
 //--------------------------------
-//Mr.ライトニングボルトの描画処理
+//エフェクトの描画処理
 //--------------------------------
 void DrawEffect(void)
 {
@@ -206,9 +206,9 @@ void DrawEffect(void)
 	pDevice->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_INVSRCALPHA);
 }
 
-//-------------------
-//エジソンの設定処理
-//-------------------
+//----------------------
+//エフェクトの設定処理
+//----------------------
 void SetEffect(D3DXVECTOR3 pos, D3DXCOLOR col, float fRadius, int nLife)
 {
 	int nCntEffect;
@@ -218,14 +218,14 @@ void SetEffect(D3DXVECTOR3 pos, D3DXCOLOR col, float fRadius, int nLife)
 		if (g_aEffect[nCntEffect].bUse == false)
 		{
 			g_aEffect[nCntEffect].pos = pos;									//プレイヤーの中心とマテリアルの中心を同じにする
-			g_aEffect[nCntEffect].col = col;									//ファイバーの色
+			g_aEffect[nCntEffect].col = col;									//エフェクトの色
 			g_aEffect[nCntEffect].fRadius = fRadius;
 			g_aEffect[nCntEffect].nLife = nLife;
 			g_aEffect[nCntEffect].bUse = true;
 
 			VERTEX_2D *pVtx;		//頂点情報へのポインタ
 
-			//頂点バッファをコック＆ロックし、頂点情報へのポインタを取得
+			//頂点バッファをロックし、頂点情報へのポインタを取得
 			g_pVtxBuffEffect->Lock(0, 0, (void**)&pVtx, 0);
 
 			pVtx += nCntEffect * 4;						//デデデータに合わせた数値分進む

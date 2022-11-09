@@ -1,7 +1,7 @@
 //------------------------------------------------------------------------------
 //
 //リザルト画面
-//Author;takanoooooooooooooooooooooooooooooooooooooooooo
+//Author;takano
 //
 //------------------------------------------------------------------------------
 #include"result.h"
@@ -24,7 +24,7 @@ void InitResult(void)
 {
 	LPDIRECT3DDEVICE9 pDevice;						//デバイスのポインタ
 
-													//デヴァイスの取得
+													//デバイスの取得
 	pDevice = GetDevice();
 
 	//頂点バッファの生成
@@ -121,7 +121,7 @@ void DrawResult(void)
 {
 	LPDIRECT3DDEVICE9 pDevice;						//デバイスのポインタ
 
-	//デヴァイスの取得
+	//デバイスの取得
 	pDevice = GetDevice();
 
 	//頂点フォーマット

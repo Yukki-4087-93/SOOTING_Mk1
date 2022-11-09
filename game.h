@@ -2,7 +2,7 @@
 //
 //
 //ÉQÅ[ÉÄâÊñ 
-//Author;takanooooooooooooooooooooooooooooooooooo
+//Author;takano
 //
 //------------------------------------------------------------
 #ifndef _GAME_H_

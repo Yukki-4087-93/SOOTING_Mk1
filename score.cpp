@@ -20,7 +20,7 @@ static int s_nScore;														//スコアの値
 void InitScore(void)
 {
 	LPDIRECT3DDEVICE9 pDevice;				//デバイスのポインタ
-	pDevice = GetDevice();					//デヴァイスの取得
+	pDevice = GetDevice();					//デバイスの取得
 	
 	//テクスチャの読み込み処理
 	D3DXCreateTextureFromFile(pDevice, "Data//TEXTURE//number000.png", &s_pTexture);
@@ -39,7 +39,7 @@ void InitScore(void)
 
 	VERTEX_2D*pVtx;			//頂点情報へのポインタ
 
-	//頂点バッファをコック＆ロックし、頂点情報へのポインタを取得
+	//頂点バッファをロックし、頂点情報へのポインタを取得
 	s_pVtxBuff->Lock(0, 0, (void**)&pVtx, 0);
 
 	for (int nCountRank = 0; nCountRank < MAX_SCORE; nCountRank++)
@@ -68,7 +68,7 @@ void InitScore(void)
 		pVtx[2].tex = D3DXVECTOR2(0.0f, 1.0f);
 		pVtx[3].tex = D3DXVECTOR2(0.1f, 1.0f);
 
-		pVtx += 4;				//デデデータが4個分進む
+		pVtx += 4;				//データが4個分進む
 	}
 
 	//頂点バッファをアンロックする
@@ -101,19 +101,6 @@ void UninitScore(void)
 void UpdateScore(void)
 {
 
-	//VERTEX_2D*pVtx;			//頂点情報へのポインタ
-
-	////頂点バッファをコック＆ロックし、頂点情報へのポインタを取得
-	//s_pVtxBuff->Lock(0, 0, (void**)&pVtx, 0);
-
-	////頂点カラーの設定
-	//pVtx[0].col = D3DXCOLOR(0.0f, 0.0f, 0.0f, 0.75f);
-	//pVtx[1].col = D3DXCOLOR(0.0f, 0.0f, 0.0f, 0.75f);
-	//pVtx[2].col = D3DXCOLOR(0.0f, 0.0f, 0.0f, 0.75f);
-	//pVtx[3].col = D3DXCOLOR(0.0f, 0.0f, 0.0f, 0.75f);
-
-	////頂点バッファをアンロックする
-	//s_pVtxBuff->Unlock();
 }
 
 //-----------------
@@ -162,7 +149,7 @@ void SetScore(int nScore)
 
 	VERTEX_2D*pVtx;			//頂点情報へのポインタ
 
-	//頂点バッファをコック＆ロックし、頂点情報へのポインタを取得
+	//頂点バッファをロックし、頂点情報へのポインタを取得
 	s_pVtxBuff->Lock(0, 0, (void**)&pVtx, 0);
 
 	for (nCountRank = 0; nCountRank < MAX_SCORE; nCountRank++)
@@ -197,7 +184,7 @@ void AddScore(int nValue)
 
 	VERTEX_2D*pVtx;			//頂点情報へのポインタ
 
-	//頂点バッファをコック＆ロックし、頂点情報へのポインタを取得
+	//頂点バッファをロックし、頂点情報へのポインタを取得
 	s_pVtxBuff->Lock(0, 0, (void**)&pVtx, 0);
 
 	for (int nCountRank = 0; nCountRank < MAX_SCORE; nCountRank++)

@@ -1,7 +1,7 @@
 //----------------------------------------------------------------------------------------
 //
-//ランキングyearrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr
-//Author;takanoooooooomononononononononononononnnonononononononononononononononon
+//ランキング
+//Author;takano
 //
 //----------------------------------------------------------------------------------------
 #include"ranking.h"
@@ -198,7 +198,7 @@ void UpdateRanking(void)
 	int nCountRank;
 	VERTEX_2D*pVtx;			//頂点情報へのポインタ
 
-	//頂点バッファをコック＆ロックし、頂点情報へのポインタを取得
+	//頂点バッファをロックし、頂点情報へのポインタを取得
 	g_pVtxBuffRankScore->Lock(0, 0, (void**)&pVtx, 0);
 	if (g_nRankUpdate != -1)
 	{
@@ -296,7 +296,7 @@ void ResetRanking(void)
 }
 
 //---------------------------
-//ランキングのセッto
+//ランキングのセット
 //---------------------------
 void SetRanking(int nScore)
 {

@@ -1,7 +1,7 @@
 //------------------------------------------------------
 //
 //BOSS
-//Author;takanoooooooooooo
+//Author;takano
 //
 //------------------------------------------------------
 #ifndef _BOSS_H_
@@ -11,10 +11,10 @@
 //------------
 //マクロ定義
 //------------
-#define	MAX_BOSS			(1)							//ボス最大装填数
+#define	MAX_BOSS			(1)							//ボス最大数
 #define NUM_BOSS			(1)							//ボスの種類
-#define BOSS_HISIZE			(200)						//敵の潜水艦のサイズの半分(高さ)
-#define BOSS_WDSIZE			(200)						//敵の潜水艦のサイズの半分(横)
+#define BOSS_HISIZE			(200)						//サイズ高さ
+#define BOSS_WDSIZE			(200)						//サイズ横
 
 //-----------------------
 //敵ちゃんの状態
@@ -40,7 +40,7 @@ typedef struct
 	BOSSSTATE state;						//状態
 	int nCounterState;						//状態管理カウンター
 	int nLife;								//体力
-	bool bUse;								//敵ちゃんが使用中か否か
+	bool bUse;								//エネミーが使用中か否か
 
 }Boss;
 

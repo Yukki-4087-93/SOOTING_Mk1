@@ -1,7 +1,7 @@
 //-----------------------------------------------------------------------------------------------------------
 //
-//メインキャンスゥーーーーーーーーーー...ふーーーー
-//Author;takanoooooooooooooooo
+//メイン
+//Author;takano
 //
 //-----------------------------------------------------------------------------------------------------------
 #include"main.h"
@@ -37,7 +37,7 @@ LPDIRECT3D9 g_pD3D = NULL;							//Direct3Dオブジェクトのポインタ
 LPDIRECT3DDEVICE9 g_pD3DDevice = NULL;				//Direct3Dデバイスのポインタ
 LPD3DXFONT g_pFont = NULL;
 int g_nCountFPS = 0;
-MODE g_mode = MODE_GAME;							//現在のぉモード
+MODE g_mode = MODE_TITLE;							//現在のモード
 
 //------------
 //メイン関数
@@ -79,8 +79,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hInstancePrev, LPSTR lpCmdLine
 		WS_OVERLAPPEDWINDOW,						//ウィンドスタイル			
 		CW_USEDEFAULT,								//ウィンドウの左上ｘ座標
 		CW_USEDEFAULT,								//ウィンドウの左上ｙ座標
-		(rect.right - rect.left),					//＾＾＾＾＾の幅
-		(rect.bottom - rect.top),					//＾＾＾＾＾の高さ
+		(rect.right - rect.left),					//ウィンドウの幅
+		(rect.bottom - rect.top),					//ウィンドウの高さ
 		NULL,										//親ウィンドウのハンドル
 		NULL,										//メニューハンドルor子ウィンドウＩＤ
 		hInstance,									//インスタンスハンドル
@@ -303,10 +303,10 @@ HRESULT InIt(HINSTANCE hInstance, HWND hWnd, BOOL bWindow)
 		return E_FAIL;
 	}
 
-	//女医の初期化
+	//ゲームパットの初期化
 	InitJoypad();
 
-	//ランキングのリセマラ
+	//ランキングのリセット
 	ResetRanking();
 	
 	//サウンドの初期化処理

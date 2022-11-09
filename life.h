@@ -1,7 +1,7 @@
 //---------------------------------------------------------
 //
 //ƒ‰ƒCƒt
-//Author:takanooooooooooooooooooooooo
+//Author:takano
 //
 //---------------------------------------------------------
 #ifndef _LIFE_H_
@@ -23,7 +23,6 @@ void UninitLife(void);
 void UpdateLife(void);
 void DrawLife(void);
 void SetLife(void);
-//void AddLife(int nAddlife,D3DXVECTOR3 pos);
 void HitLife(void);
 
 #endif // !_LIFE_H_

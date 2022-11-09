@@ -1,7 +1,7 @@
 //------------------------------------------------------------------------------------------
 //
 //ポーズメニュー
-//Author;takanononononooonnonononnonononooonononononononononononooononono
+//Author;takano
 //
 //------------------------------------------------------------------------------------------
 #include"pause.h"
@@ -23,8 +23,8 @@ LPDIRECT3DTEXTURE9 g_pTexturePauseMenu[POUSE_MENU_MAX] = {NULL,NULL,NULL};					/
 LPDIRECT3DTEXTURE9 g_pTexturePause = NULL;													//テクスチャのポインタ
 LPDIRECT3DVERTEXBUFFER9 g_pVtxBuffPause = NULL;												//頂点バッファのポインタ
 LPDIRECT3DVERTEXBUFFER9 g_pVtxBuffPauseMenu = NULL;											//頂点バッファのポインタ
-PAUSE_MENU g_pauseMenu;																		//ポーズメニウ
-PAUSE g_aPause[POUSE_MENU_MAX];
+PAUSE_MENU g_pauseMenu;																		//ポーズメニゥー構造体の情報
+PAUSE g_aPause[POUSE_MENU_MAX];																//ポーズ構造体の情報
 
 //---------------------
 //ポーズの初期化処理
@@ -35,7 +35,7 @@ void InitPause(void)
 
 	LPDIRECT3DDEVICE9 pDevice;																//デバイスのポインタ
 
-	//デヴァイスの取得
+	//デバイスの取得
 	pDevice = GetDevice();
 
 	//頂点バッファの生成
@@ -61,11 +61,12 @@ void InitPause(void)
 
 	for (nCountPause = 0; nCountPause < POUSE_MENU_MAX; nCountPause++)
 	{
-		//ショキーカショリティ
+		//値の初期化
 		g_aPause[nCountPause].pos = D3DXVECTOR3(SCREEN_WIDTH * 0.2f,170.0f + (MAX_H * 7.0f * nCountPause), 0.0f);
 		g_aPause[nCountPause].col = D3DXCOLOR(0.8f, 0.8f, 0.8f, 1.0f);
 	}
 
+	//ポーズ情報の初期化
 	g_pauseMenu = POUSE_MENU_COUNTINUE;
 	
 	VERTEX_2D*pVtx;			//頂点情報へのポインタ

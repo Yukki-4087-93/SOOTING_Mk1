@@ -13,8 +13,8 @@
 //マクロ定義
 //--------------
 #define MAX_SCORE				(5)					//扱う数字の箱(個数)
-#define SCORE_WIDTH				(30)
-#define	SCORE_HEIGHT			(50)
+#define SCORE_WIDTH				(30)				//幅
+#define	SCORE_HEIGHT			(50)				//高さ
 
 //-----------------
 //プロトタイプ宣言

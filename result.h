@@ -1,7 +1,7 @@
 //----------------------------------------------------------------------
 //
 //ƒŠƒUƒ‹ƒg‰æ–Ê
-//Author:takanoooooooooooooooooooooooooooooooooooooooooo
+//Author:takano
 //
 //----------------------------------------------------------------------
 #ifndef _RESULT_H_

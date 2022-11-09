@@ -1,7 +1,7 @@
 //-----------------------------------------------------------------------------------------------------------
 //
-//動かないでくれ・P処理
-//Author;takanoooooooooooooooo
+//プレイヤー
+//Author;takano
 //
 //-----------------------------------------------------------------------------------------------------------
 #ifndef _PLAYER_H_													//このマクロ定義がなされなっかたら
@@ -37,11 +37,11 @@ typedef struct
 	D3DXVECTOR3 rot;							//プレイヤー向き
 	PLAYERSTATE state;							//状態
 	int nCounterState;							//状態管理カウンター
-	int nCountTimer;							//魂射出！時間
+	int nCountTimer;							//とある弾の発射用のカウント変数
 	int nPlayerLife;							//ライフ
-	float fLength;								//対角線のロングレンジ
-	float fAngle;								//対角線のティンダロスの猟犬
-	bool bUse;									//わたしゃが使用中か否か
+	float fLength;								//対角線の距離
+	float fAngle;								//対角線の角度
+	bool bUse;									//プレイヤーが使用中か否か
 }Player;
 
 
