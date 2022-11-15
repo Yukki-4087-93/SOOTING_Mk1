@@ -49,7 +49,7 @@ void InitGame(void)
 	InitPop();
 	InitExplosion();			//爆発の初期化
 	g_bPause = false;
-//	PlaySound(SOUND_LABEL_BATTLEMEETING_VER_2);
+	PlaySound(SOUND_LABEL_BATTLEMEETING_VER_2);
 }
 
 //---------------------------
@@ -57,7 +57,7 @@ void InitGame(void)
 //---------------------------
 void UninitGame(void)
 {
-	//StopSound();
+	StopSound();
 	UninitBG();				//終了処理(背景)
 	UninitScore();			//終了処理(スコア)
 	UninitBullet();			//終了処理（弾）

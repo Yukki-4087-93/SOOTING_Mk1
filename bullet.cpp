@@ -246,6 +246,8 @@ void UpdateBullet(void)
 							//プレイヤーのヒット処理
 							HitPlayer(1);
 
+							HitLife();
+
 							g_aBullet[nCntBullet].bUse = false;			//使用されていない状態にする
 						}
 					}
@@ -267,6 +269,8 @@ void UpdateBullet(void)
 
 							//プレイヤーのヒット処理
 							HitPlayer(1);
+
+							HitLife();
 
 							g_aBullet[nCntBullet].bUse = false;			//使用されていない状態にする
 						}
